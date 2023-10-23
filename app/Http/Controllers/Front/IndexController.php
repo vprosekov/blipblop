@@ -10,8 +10,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $token = $_COOKIE["token"];
-        $user = auth()->user();
         return view('newsfeed');
     }
 
@@ -39,5 +37,22 @@ class IndexController extends Controller
         $response = app()->handle($req);
         // redirect to /login
         return redirect()->route('login');
+    }
+
+    public function userpage($user_id)
+    {
+        $req = Request::create(env("APP_URL") . "" . "api/user/" . $user_id, 'GET');
+        $req->headers->set('Accept', 'application/json');
+        $req->headers->set('Authorization', 'Bearer ' . $_COOKIE["token"]);
+        $response = app()->handle($req);
+        $user = json_decode($response->getContent())->data->user;
+        if (!$user) {
+            return redirect()->route('newsfeed');
+        }
+        return view('profile', ['user' => $user]);
+    }
+
+    public function users(){
+        return view('users');
     }
 }

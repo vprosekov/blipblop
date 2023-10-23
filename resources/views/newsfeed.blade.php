@@ -1,28 +1,8 @@
 @extends('layout.layout')
 
 @section('content')
-    <div class="row">
-        <div class="publish">
-            <div class="row_title">
-                <span><i class="fa fa-newspaper-o" aria-hidden="true"></i> Status</span>
+    @include('layout.publishpost')
 
-            </div>
-            <form method="" action="/">
-                <div class="publish_textarea">
-                    <img class="border-radius-image" src="{{Auth::user()->profile_photo_id ? Auth::user()->profile_photo_id : env("APP_URL")."images/no-profile-pic.jpeg"}}" alt="" />
-                    <textarea type="text" placeholder="¿Whats up, {{ Auth::user()->name }}?" style="resize: none;"></textarea>
-                </div>
-                <div class="publish_icons">
-                    <ul>
-                        <li><i class="fa fa-camera"></i></li>
-                        <li><i class="fa fa-video-camera"></i></li>
-                        <li><i class="fa fa-map-marker" aria-hidden="true"></i></li>
-                    </ul>
-                    <button>Publish</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <div class="row border-radius">
         <div class="feed">
@@ -87,7 +67,8 @@
     <div class="row border-radius">
         <div class="feed">
             <div class="feed_title">
-                <img src="{{Auth::user()->profile_photo_id ? Auth::user()->profile_photo_id : env("APP_URL")."images/no-profile-pic.jpeg"}}" alt="" />
+                <img src="{{ Auth::user()->profile_photo_id ? Auth::user()->profile_photo_id : env('APP_URL') . 'images/no-profile-pic.jpeg' }}"
+                    alt="" />
                 <span><b>{{ Auth::user()->name }}</b> shared a <a href="feed.html">video</a><br>
                     <p>March 1 at 3:53pm</p>
                 </span>
@@ -190,4 +171,36 @@
             </div>
         </a>
     </center>
+
+@stop
+
+@section('script')
+    <script>
+        $("#publish-post-btn").click(function(e) {
+            e.preventDefault();
+            // validate
+            var post = $("#post-content").val();
+            if (post == "") {
+                alert("Please write something");
+                return false;
+            }
+            // ajax
+            $.ajax({
+                type: 'POST',
+                url: '/api/posts',
+                data: {
+                    content: post
+                },
+                success: function(data) {
+                    alert('Post added');
+                    window.location.reload();
+
+                },
+                error: function(data) {
+                    alert('Error');
+                }
+            });
+
+        });
+    </script>
 @stop

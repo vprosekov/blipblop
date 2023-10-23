@@ -88,7 +88,7 @@
         $('#regbtn').click(function() {
             $.ajax({
                 type: 'POST',
-                url: '/api/register',
+                url: '{{env("APP_URL")}}api/register',
                 data: {
                     name: $('input[name=username]').val(),
                     email: $('input[name=email]').val(),

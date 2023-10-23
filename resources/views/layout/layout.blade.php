@@ -176,7 +176,7 @@
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
     <script>
         // Modals
         $(document).ready(function() {
@@ -233,15 +233,9 @@
             document.documentElement.scrollTop = 0;
         }
     </script>
+    
 
-    <script>
-        // $(document).ready(function() {
-        //     if (!localStorage.token) {
-                
-        //         window.location.href = "/login";
-        //     }
-        // });
-    </script>
+    @yield('script')
 </body>
 
 </html>

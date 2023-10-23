@@ -91,7 +91,7 @@
         $('#loginbtn').click(function() {
             $.ajax({
                 type: 'POST',
-                url: '/api/login',
+                url: '{{env("APP_URL")}}api/login',
                 data: {
                     email: $('input[name=email]').val(),
                     password: $('input[name=pass]').val()

@@ -3,10 +3,10 @@
         <i class="fa fa-navicon"></i>
     </div>
     <div class="navbar_logo">
-        <img src="images/logo.png" alt="" />
+        <a href="{{env("APP_URL")}}"><img src="{{env('APP_URL')}}images/logo.png" alt="" /></a>
     </div>
     <div class="navbar_page">
-        <span>{{ Route::currentRouteName() }}</span>
+        <span>{{ env("APP_NAME") }}</span>
     </div>
     <div class="navbar_search">
     </div>
@@ -18,7 +18,7 @@
         </ul>
     </div>
     <div class="navbar_user" id="profilemodal" style="cursor:pointer">
-        <img src="{{Auth::user()->profile_photo_id ? Auth::user()->profile_photo_id : env("APP_URL")."images/no-profile-pic.jpeg"}}" alt="" />
+        <img src="{{ Auth::user()->profile_photo->file_path }}" alt="" />
         <span id="navbar_user_top">{{ Auth::user()->name }}<br><p>good boy</p></span><i class="fa fa-angle-down"></i>
     </div>
 </div>

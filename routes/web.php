@@ -17,8 +17,12 @@ use App\Http\Controllers\Front\IndexController;
 
 // through CheckCookieToken middleware
 Route::middleware([CheckCookieToken::class])->group(function () {
-    Route::get('/', [IndexController::class,'index'])->name('newsfeed');
+    Route::get('/', [IndexController::class,'index'])->name('newsfeed'); // TODO
     Route::get('/logout', [IndexController::class,'logout'])->name('logout');
+
+    Route::get('/users/{user_id}', [IndexController::class,'userpage'])->name('userpage'); // TODO Comments
+
+    Route::get('/users/', [IndexController::class,'users'])->name('users');
 });
 
 
